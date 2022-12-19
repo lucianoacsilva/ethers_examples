@@ -1,14 +1,14 @@
 const { ethers } = require("ethers");
 
-const INFURA_ID = ''
-const provider = new ethers.providers.JsonRpcProvider(`https://mainnet.infura.io/v3/${INFURA_ID}`)
+const dotenv = require("dotenv");
+dotenv.config();
 
-const address = '0x73BCEb1Cd57C711feaC4224D062b0F6ff338501e'
+const exec = async (params) => {
+    const provider = new ethers.providers.JsonRpcProvider(`https://mainnet.infura.io/v3/${process.env.INFURA_PROJECT_ID}`);
+    const balance = await provider.getBalance(process.env.ACCOUNT_ADDRESS);
 
-const main = async () => {
-    const balance = await provider.getBalance(address)
-    console.log(`\nETH Balance of ${address} --> ${ethers.utils.formatEther(balance)} ETH\n`)
+    console.log('balance :>> ', ethers.utils.formatEther(balance));
 }
 
-main()
+exec()
 
